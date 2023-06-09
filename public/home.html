@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>plzDoIt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/public/app.css" />
+    <style></style>
+  </head>
+  <body>
+    <header>
+      <h1>&lt;제발 좀 하고 놀아라 /&gt;</h1>
+    </header>
+    <main>
+      <button type="button" id="logInButton">OK</button>
+      <form action="/process/logIn" method="post" name="logIn" id="logIn">
+        <div class="logInForm">
+          <h3>제발 좀.do.it</h3>
+          <input type="text" class="id" name="logInId" placeholder="ID (Eng)" />
+          <input
+            type="password"
+            class="pw"
+            name="logInPw"
+            placeholder="Password"
+          />
+          <button type="submit" class="logInSubmit" disabled>로그인</button>
+          <div id="signUpButtonChange">회원가입</div>
+        </div>
+      </form>
+      <form action="/process/signUp" method="post" name="signUp" id="signUp">
+        <div class="signUpForm">
+          <h3>제발 좀.do.it</h3>
+          <input
+            type="text"
+            class="id"
+            name="signUpId"
+            placeholder="ID (Eng)"
+          />
+          <input
+            type="password"
+            class="pw"
+            name="signUpPw"
+            placeholder="Password"
+          />
+          <input
+            type="text"
+            class="name"
+            name="signUpName"
+            placeholder="Name (Kor)"
+          />
+          <button type="submit" class="signUpSubmit" disabled>회원가입</button>
+          <div id="logInButtonChange">로그인</div>
+        </div>
+      </form>
+      <div class="backDrop"></div>
+    </main>
+    <footer></footer>
+    <script src="/public/home.js"></script>
+  </body>
+</html>

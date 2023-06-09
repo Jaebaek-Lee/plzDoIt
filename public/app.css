@@ -1,0 +1,342 @@
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+}
+html {
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* height: 100%; */
+  background: linear-gradient(
+    90.58deg,
+    #528d9a -0.05%,
+    #4b678c 49.46%,
+    #43427d 98.97%
+  );
+}
+.adminTitle {
+  margin: 50px auto;
+  text-align: center;
+  color: white;
+}
+.adminUl {
+  color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.adminLi {
+  display: inline-block;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  /* background-color: #43427d; */
+  text-align: center;
+  width: 300px;
+}
+header {
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: x-large;
+}
+h1 {
+  margin: 0;
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+/* a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+} */
+main {
+  width: 480px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+#logInButton,
+#reset {
+  background: linear-gradient(
+    90deg,
+    rgba(39, 164, 118, 0.8) 0%,
+    rgba(47, 159, 162, 0.8) 53.65%,
+    rgba(42, 126, 174, 0.8) 100%
+  );
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+  border-radius: 50px;
+  padding: 10px 25px;
+  font-size: 18px;
+  color: rgb(232, 232, 232);
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+#logInButton:hover,
+#logInButton:active,
+#reset:active,
+#reset:hover {
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(
+    90deg,
+    rgba(52, 197, 144, 0.8) 0%,
+    rgba(54, 182, 186, 0.8) 53.65%,
+    rgba(56, 166, 228, 0.8) 100%
+  );
+}
+#logIn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.164);
+  border-radius: 20px;
+  z-index: 2;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  display: none;
+}
+#signUp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 360px;
+  background-color: rgba(255, 255, 255, 0.164);
+  border-radius: 20px;
+  z-index: 2;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  display: none;
+}
+.backDrop {
+  background-color: rgba(0, 0, 0, 0.39);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: none;
+}
+.logInForm,
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+.logInForm h3,
+.signUpForm h3 {
+  padding: 10px;
+  color: white;
+}
+.id,
+.pw,
+.name {
+  margin-bottom: 20px;
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  padding: 10px;
+  padding-left: 15px;
+  background-color: #0000002d;
+  border: 1px #5066a495 solid;
+  color: white;
+}
+.id:focus,
+.id:active,
+.pw:focus,
+.pw:active,
+.name:focus,
+.name:active {
+  border: none;
+  outline: none;
+  /* background-color: #00000028; */
+  border: 1.5px #95a0b1 solid;
+}
+.logInSubmit,
+.signUpSubmit {
+  /* background: linear-gradient(
+    90deg,
+    rgba(52, 197, 144, 0.8) 0%,
+    rgba(54, 182, 186, 0.8) 53.65%,
+    rgba(56, 166, 228, 0.8) 100%
+  ); */
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  background-color: gray;
+  cursor: default;
+}
+/* .logInSubmit:hover,
+.signUpSubmit:hover {
+  pointer-events: none;
+} */
+#signUpButtonChange,
+#logInButtonChange {
+  color: rgb(183, 183, 183);
+  font-size: small;
+  margin-top: 18px;
+}
+#signUpButtonChange:hover,
+#logInButtonChange:hover {
+  cursor: pointer;
+  color: white;
+}
+#addTask {
+  width: 480px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+}
+#taskText {
+  border-radius: 20px 0px 0px 20px;
+  border: none;
+  outline: none;
+  width: 380px;
+  height: 40px;
+  padding: 10px;
+  padding-left: 15px;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.664);
+  color: white;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.25);
+}
+#taskText:hover,
+#taskText:focus {
+  background-color: rgba(0, 0, 0, 0.586);
+}
+#addTaskButton {
+  border-radius: 0px 20px 20px 0px;
+  border: none;
+  outline: none;
+  width: 60px;
+  height: 40px;
+  padding: 0px;
+  margin: 0px;
+  background: linear-gradient(
+    90deg,
+    rgba(39, 164, 118, 0.8) 0%,
+    rgba(47, 159, 162, 0.8) 53.65%,
+    rgba(42, 126, 174, 0.8) 100%
+  );
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+#addTaskButton:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(52, 197, 144, 0.8) 0%,
+    rgba(54, 182, 186, 0.8) 53.65%,
+    rgba(56, 166, 228, 0.8) 100%
+  );
+}
+#clock {
+  color: rgb(238, 238, 238);
+  margin: 20px 0px;
+  /* display: none; */
+}
+#clock div {
+  display: inline-block;
+}
+#taskList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  color: white;
+  width: 480px;
+  /* background-color: #5e5e5e; */
+  /* display: none; */
+}
+.task {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 5px 15px;
+  margin-bottom: 20px;
+  width: 70%;
+  border-radius: 20px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.586);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+img {
+  width: 18px;
+  height: 18px;
+}
+.taskButtons {
+  display: flex;
+  flex-direction: row;
+}
+.check,
+.delete {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  /* background-color: aliceblue; */
+  background-color: rgb(203, 208, 213);
+  margin-left: 10px;
+  cursor: pointer;
+}
+.check:hover,
+.delete:hover {
+  /* background-color: rgb(203, 208, 213); */
+  background-color: aliceblue !important;
+}
+
+#reset {
+  /* display: none; */
+  background: none;
+  background-color: #95a0b1;
+  font-size: 16px;
+  padding: 6px 16px;
+}
+
+#reset:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(158, 43, 160, 0.8) 0%,
+    rgba(190, 53, 112, 0.8) 54.69%,
+    rgba(221, 64, 64, 0.8) 100%
+  );
+}
