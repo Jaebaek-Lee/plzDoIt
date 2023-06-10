@@ -162,6 +162,7 @@ app.get("/main", (req, res) => {
                   <img src="/public/images/check.png" />
                 </button>
                 <form action="/process/delete" method="post" name="reset">
+                  <input type="hidden" name="task" value="${row.task}" />
                   <button type="submit" class="delete">
                     <img src="/public/images/trashcan.png" />
                   </button>
@@ -243,6 +244,37 @@ app.post("/addTask", (req, res) => {
           console.dir(err);
           res.writeHead("200", { "Content-Type": "text/html;charset=utf8" });
           res.write("<h2>추가 실패</h2>");
+          res.end();
+          return;
+        }
+        console.dir(result);
+        res.redirect("/main");
+      }
+    );
+  });
+});
+
+app.post("/process/delete", (req, res) => {
+  const task = req.body.task;
+  console.log(task);
+  pool.getConnection((err, conn) => {
+    if (err) {
+      conn.release();
+      console.log("DB connection failed");
+      return;
+    }
+    console.log("DB connection success");
+    const exec = conn.query(
+      "delete from tasks where id = ? and task = ?",
+      [uid, task],
+      (err, result) => {
+        conn.release();
+        console.log("실행된 sql: " + exec.sql);
+        if (err) {
+          console.log("sql 실행 시 오류 발생");
+          console.dir(err);
+          res.writeHead("200", { "Content-Type": "text/html;charset=utf8" });
+          res.write("<h2>삭제 실패</h2>");
           res.end();
           return;
         }
