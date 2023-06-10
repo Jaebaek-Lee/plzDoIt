@@ -161,9 +161,11 @@ app.get("/main", (req, res) => {
                 <button type="button" class="check">
                   <img src="/public/images/check.png" />
                 </button>
-                <button type="submit" class="delete">
-                  <img src="/public/images/trashcan.png" />
-                </button>
+                <form action="/process/delete" method="post" name="reset">
+                  <button type="submit" class="delete">
+                    <img src="/public/images/trashcan.png" />
+                  </button>
+                </form>
               </div>
             </li> 
       `;
@@ -200,12 +202,10 @@ app.get("/main", (req, res) => {
           <div id="date"></div>
           <div id="time"></div>
         </div>
-        <form action="/process/reset" method="post" name="reset">
-        <div>
           <ul id="taskList"></ul>
-          <button type="submit" id="reset">Reset</button>
-          </div>
-        </form>
+          <form action="/process/reset" method="post" name="reset">
+            <button type="submit" id="reset">Reset</button>
+          </form>
       </main>
       <footer></footer>
       <script src="/public/main.js"></script>
@@ -221,6 +221,67 @@ app.get("/main", (req, res) => {
     );
   });
 });
+
+app.post("/addTask", (req, res) => {
+  const task = req.body.taskText;
+  console.log(task);
+  pool.getConnection((err, conn) => {
+    if (err) {
+      conn.release();
+      console.log("DB connection failed");
+      return;
+    }
+    console.log("DB connection success");
+    const exec = conn.query(
+      "insert into tasks (id, task) values (?, ?)",
+      [uid, task],
+      (err, result) => {
+        conn.release();
+        console.log("실행된 sql: " + exec.sql);
+        if (err) {
+          console.log("sql 실행 시 오류 발생");
+          console.dir(err);
+          res.writeHead("200", { "Content-Type": "text/html;charset=utf8" });
+          res.write("<h2>추가 실패</h2>");
+          res.end();
+          return;
+        }
+        console.dir(result);
+        res.redirect("/main");
+      }
+    );
+  });
+});
+
+app.post("/process/reset", (req, res) => {
+  pool.getConnection((err, conn) => {
+    if (err) {
+      conn.release();
+      console.log("DB connection failed");
+      return;
+    }
+    console.log("DB connection success");
+    const exec = conn.query(
+      "delete from tasks where id = ?",
+      [uid],
+      (err, result) => {
+        conn.release();
+        console.log("실행된 sql: " + exec.sql);
+        if (err) {
+          console.log("sql 실행 시 오류 발생");
+          console.dir(err);
+          res.writeHead("200", { "Content-Type": "text/html;charset=utf8" });
+          res.write("<h2>삭제 실패</h2>");
+          res.end();
+          return;
+        }
+        console.dir(result);
+        res.redirect("/main");
+      }
+    );
+  });
+});
+
 // const db = mysql.createConnection({
 //   host: sqlData.host,
 //   user: sqlData.user,
