@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const mysql = require("mysql2");
 const port = 3000;
 const static = require("serve-static");
@@ -112,12 +112,12 @@ app.post("/process/signUp", (req, res) => {
         if (result) {
           console.dir(result);
           console.log("inserted 성공");
-          res.writeHead("200", { "Content-Type": "text/html;charset=utf8" });
-          res.write(
-            "<script>alert('환영합니다 " + `${paramName}` + "님!')</script>"
-          );
-          // res.redirect("/home");
-          res.write(fs.readFileSync("./public/main.html"));
+          // res.writeHead("200", { "Content-Type": "text/html;charset=utf8" });
+          // res.write(
+          //   "<script>alert('환영합니다 " + `${paramName}` + "님!')</script>"
+          // );
+          res.redirect("/home");
+          // res.write(fs.readFileSync("./public/home.html"));
           res.end();
         } else {
           res.writeHead("200", { "Content-Type": "text/html;charset=utf8" });
