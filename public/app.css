@@ -332,7 +332,8 @@ img {
   padding: 6px 16px;
 }
 
-#reset:hover {
+#reset:hover,
+#reset:active {
   background: linear-gradient(
     90deg,
     rgba(158, 43, 160, 0.8) 0%,

@@ -8,6 +8,7 @@ const session = require("express-session");
 // const bodyParser = require("body-parser");
 const sqlData = require("./mysql.json");
 const fs = require("fs");
+let uid = null;
 const pool = mysql.createPool({
   host: sqlData.host,
   user: sqlData.user,
@@ -17,7 +18,6 @@ const pool = mysql.createPool({
   debug: false,
   connectionLimit: 10,
 });
-
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -35,6 +35,7 @@ app.post("/process/logIn", (req, res) => {
   const paramId = req.body.logInId;
   const paramPw = req.body.logInPw;
   const paramName = req.body.logInName;
+  uid = paramId;
 
   pool.getConnection((err, conn) => {
     if (err) {
@@ -128,10 +129,156 @@ app.post("/process/signUp", (req, res) => {
     );
   });
 });
-
 app.get("/main", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "main.html"));
+  // res.sendFile(path.join(__dirname, "public", "main.html"));
+  console.log(uid + "님의 리스트");
+  pool.getConnection((err, conn) => {
+    if (err) {
+      conn.release();
+      console.log("DB connection failed");
+      return;
+    }
+    console.log("DB connection success");
+    const exec = conn.query(
+      "select task from tasks where id = ?",
+      [uid],
+      (err, result) => {
+        conn.release();
+        console.log("실행된 sql: " + exec.sql);
+        if (err) {
+          console.log("sql 실행 시 오류 발생");
+          console.dir(err);
+          res.writeHead("200", { "Content-Type": "text/html;charset=utf8" });
+          res.write("<h2>불러오기 실패</h2>");
+          res.end();
+          return;
+        }
+        const taskList = result.map((row) => {
+          return `
+            <li class="task">
+              <div>${row.task}</div>
+              <div class="taskButtons">
+                <button type="button" class="check">
+                  <img src="/public/images/check.png" />
+                </button>
+                <button type="submit" class="delete">
+                  <img src="/public/images/trashcan.png" />
+                </button>
+              </div>
+            </li> 
+      `;
+        });
+        const cheerio = require("cheerio");
+        const $ = cheerio.load(`<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <title>plzDoIt</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap"
+        rel="stylesheet"
+      />
+      <link rel="stylesheet" href="/public/app.css" />
+      <style></style>
+    </head>
+    <body>
+      <header>
+        <h1>&lt;제발 좀 하고 놀아라 /&gt;</h1>
+      </header>
+      <main>
+        <form action="/addTask" method="post" name="addTask" id="addTask">
+          <input type="text" name="taskText" id="taskText" /><button
+            type="submit"
+            id="addTaskButton"
+          >
+            Add
+          </button>
+        </form>
+        <div id="clock">
+          <div id="date"></div>
+          <div id="time"></div>
+        </div>
+        <form action="/process/reset" method="post" name="reset">
+        <div>
+          <ul id="taskList"></ul>
+          <button type="submit" id="reset">Reset</button>
+          </div>
+        </form>
+      </main>
+      <footer></footer>
+      <script src="/public/main.js"></script>
+    </body>
+  </html>
+  `);
+        const $ul = $("ul#taskList");
+        taskList.forEach((task) => {
+          $ul.append(task);
+        });
+        res.send($.html());
+      }
+    );
+  });
 });
+// const db = mysql.createConnection({
+//   host: sqlData.host,
+//   user: sqlData.user,
+//   password: sqlData.password,
+//   database: sqlData.database,
+//   port: sqlData.port,
+//   debug: false,
+//   connectionLimit: 10,
+// });
+
+// db.connect((err) => {
+//   if (err) {
+//     console.error("Error connecting to database: ", err);
+//     return;
+//   }
+//   console.log("Connected to database.");
+// });
+
+// const jsdom = require("jsdom");
+// const { JSDOM } = jsdom;
+
+// app.get("/main", (req, res) => {
+//   const userId = req.session.userId;
+//   const query = "SELECT * FROM tasks WHERE id = ?";
+//   db.query(query, [userId], (err, rows) => {
+//     if (err) {
+//       console.error("Error querying database: ", err);
+//       res.sendStatus(500);
+//       return;
+//     }
+//     const taskList = rows.map((row) => {
+//       const dom = new JSDOM(`<!DOCTYPE html><body></body>`);
+//       const newTask = dom.window.document.createElement("li");
+//       newTask.innerHTML = `
+//         <input type="checkbox" class="check" />
+//         <span class="task">${row.task}</span>
+//         <button class="delete" type="button">
+//           <img src="/public/images/trashcan.png" />
+//         </button>
+//       `;
+//       return newTask;
+//     });
+//     res.render("main", { taskList });
+//   });
+// });
+// app.post("/addTask", (req, res) => {
+//   console.log(1);
+//   const task = req.body.taskText;
+//   const query = "INSERT INTO tasks (id, task) VALUES (?, ?)";
+//   db.run(query, [paramId, task], (err) => {
+//     if (err) {
+//       console.log(err);
+//       res.sendStatus(500);
+//     } else {
+//       res.redirect("/");
+//     }
+//   });
+// });
 
 app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "home.html"));

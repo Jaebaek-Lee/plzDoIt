@@ -32,7 +32,7 @@ logInButtonChange.addEventListener("click", () => {
   for (let i = 0; i < 2; ++i) {
     id[i].value = null;
     pw[i].value = null;
-    inputName[i].value = null;
+    inputName[0].value = null;
   }
   logInSubmit.disabled = true;
   signUpSubmit.disabled = true;
@@ -54,7 +54,7 @@ function Cancel() {
   for (let i = 0; i < 2; ++i) {
     id[i].value = null;
     pw[i].value = null;
-    inputName[i].value = null;
+    inputName[0].value = null;
   }
   logInSubmit.style.background = signUpSubmit.style.background = "";
   logInSubmit.disabled = signUpSubmit.disabled = true;
@@ -82,8 +82,8 @@ function onSubmitCheck() {
   if (signUpForm.style.display === "block") {
     console.log(1);
     for (let i = 0; i < 2; ++i) {
-      if (id[i].value.length > 3 && pw[i].value.length > 3) {
-        if (inputName[0].value.length > 3) {
+      if (id[i].value.length >= 3 && pw[i].value.length >= 3) {
+        if (inputName[0].value.length >= 3) {
           console.log(1);
           logInSubmit.style.background =
             "linear-gradient(90deg,rgba(52, 197, 144, 0.8) 0%,rgba(54, 182, 186, 0.8) 53.65%,rgba(56, 166, 228, 0.8) 100%";
@@ -93,6 +93,16 @@ function onSubmitCheck() {
           signUpSubmit.disabled = false;
           logInSubmit.style.cursor = "pointer";
           signUpSubmit.style.cursor = "pointer";
+        } else {
+          if (i === 0) {
+            logInSubmit.style.background = "";
+            logInSubmit.disabled = true;
+            logInSubmit.style.cursor = "default";
+          } else {
+            signUpSubmit.style.background = "";
+            signUpSubmit.disabled = true;
+            signUpSubmit.style.cursor = "default";
+          }
         }
       } else {
         if (i === 0) {
@@ -108,7 +118,7 @@ function onSubmitCheck() {
     }
   } else {
     for (let i = 0; i < 2; ++i) {
-      if (id[i].value.length > 3 && pw[i].value.length > 3) {
+      if (id[i].value.length >= 3 && pw[i].value.length >= 3) {
         console.log(1);
         logInSubmit.style.background =
           "linear-gradient(90deg,rgba(52, 197, 144, 0.8) 0%,rgba(54, 182, 186, 0.8) 53.65%,rgba(56, 166, 228, 0.8) 100%";

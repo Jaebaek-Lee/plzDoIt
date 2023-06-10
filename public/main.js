@@ -26,56 +26,56 @@ for (let i = 0; i < checks.length; ++i) {
   });
 }
 
-addTaskbutton.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (TaskText.value.length > 0) {
-    const newTask = document.createElement("li");
-    newTask.classList.add("task");
-    const newTaskText = document.createElement("div");
-    const newTaskButtons = document.createElement("div");
-    newTaskButtons.classList.add("taskButtons");
-    newTaskText.classList.add("taskText");
-    newTaskText.innerHTML = `${TaskText.value}`;
-    TaskText.value = null;
-    const newCheck = document.createElement("button");
-    newCheck.classList.add("check");
-    newCheck.type = "button";
-    newCheck.innerHTML = `<img src="/public/images/check.png" />`;
-    const newDelete = document.createElement("button");
-    newDelete.classList.add("delete");
-    newDelete.type = "button";
-    newDelete.innerHTML = `<img src="/public/images/trashcan.png" />`;
-    newCheck.addEventListener("click", () => {
-      if (newTask.style.textDecoration !== "line-through") {
-        newTask.style.textDecoration = "line-through";
-        newTask.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
-        newTask.style.color = "grey";
-        newCheck.style.backgroundColor = "rgb(203, 208, 213)";
-        newDelete.style.backgroundColor = "rgb(203, 208, 213)";
-      } else {
-        newTask.style.textDecoration = "none";
-        newTask.style.backgroundColor = "rgba(0, 0, 0, 0.586)";
-        newTask.style.color = "white";
-        newCheck.style.backgroundColor = "rgb(203, 208, 213)";
-        newDelete.style.backgroundColor = "rgb(203, 208, 213)";
-      }
-    });
-    newDelete.addEventListener("click", () => {
-      newTask.style.display = "none";
-    });
-    newTaskButtons.appendChild(newCheck);
-    newTaskButtons.appendChild(newDelete);
-    newTask.appendChild(newTaskText);
-    newTask.appendChild(newTaskButtons);
-    taskList.appendChild(newTask);
-  }
-});
+// addTaskbutton.addEventListener("click", (event) => {
+//   event.preventDefault();
+//   if (TaskText.value.length > 0) {
+//     const newTask = document.createElement("li");
+//     newTask.classList.add("task");
+//     const newTaskText = document.createElement("div");
+//     const newTaskButtons = document.createElement("div");
+//     newTaskButtons.classList.add("taskButtons");
+//     newTaskText.classList.add("taskText");
+//     newTaskText.innerHTML = `${TaskText.value}`;
+//     TaskText.value = null;
+//     const newCheck = document.createElement("button");
+//     newCheck.classList.add("check");
+//     newCheck.type = "button";
+//     newCheck.innerHTML = `<img src="/public/images/check.png" />`;
+//     const newDelete = document.createElement("button");
+//     newDelete.classList.add("delete");
+//     newDelete.type = "button";
+//     newDelete.innerHTML = `<img src="/public/images/trashcan.png" />`;
+//     newCheck.addEventListener("click", () => {
+//       if (newTask.style.textDecoration !== "line-through") {
+//         newTask.style.textDecoration = "line-through";
+//         newTask.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+//         newTask.style.color = "grey";
+//         newCheck.style.backgroundColor = "rgb(203, 208, 213)";
+//         newDelete.style.backgroundColor = "rgb(203, 208, 213)";
+//       } else {
+//         newTask.style.textDecoration = "none";
+//         newTask.style.backgroundColor = "rgba(0, 0, 0, 0.586)";
+//         newTask.style.color = "white";
+//         newCheck.style.backgroundColor = "rgb(203, 208, 213)";
+//         newDelete.style.backgroundColor = "rgb(203, 208, 213)";
+//       }
+//     });
+//     newDelete.addEventListener("click", () => {
+//       newTask.style.display = "none";
+//     });
+//     newTaskButtons.appendChild(newCheck);
+//     newTaskButtons.appendChild(newDelete);
+//     newTask.appendChild(newTaskText);
+//     newTask.appendChild(newTaskButtons);
+//     taskList.appendChild(newTask);
+//   }
+// });
 
-for (let i = 0; i < deletes.length; ++i) {
-  deletes[i].addEventListener("click", () => {
-    tasks[i].style.display = "none";
-  });
-}
+// for (let i = 0; i < deletes.length; ++i) {
+//   deletes[i].addEventListener("click", () => {
+//     tasks[i].style.display = "none";
+//   });
+// }
 
 function updateTime() {
   let now = new Date();
@@ -106,18 +106,9 @@ function addLeadingZero(number) {
 }
 updateTime();
 
-resetButton.addEventListener("click", () => {
-  let tasks = document.querySelectorAll(".task");
-  for (let i = 0; i < tasks.length; ++i) {
-    tasks[i].style.display = "none";
-  }
-});
-
-// 세션에 저장된 ID 정보를 가져옵니다.
-const userId = sessionStorage.getItem("userId");
-// ...
-
-// 로그인한 사용자의 ID 정보를 출력합니다.
-if (userId) {
-  console.log("로그인한 사용자: " + userId);
-}
+// resetButton.addEventListener("click", () => {
+//   let tasks = document.querySelectorAll(".task");
+//   for (let i = 0; i < tasks.length; ++i) {
+//     tasks[i].style.display = "none";
+//   }
+// });
